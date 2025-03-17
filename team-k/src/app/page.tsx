@@ -13,7 +13,7 @@ export default function Home() {
       {/* Centered Heading */}
       <h1 className="text-7xl font-bold text-center w-full">{t('welcomeMessage')}</h1>
 
-      <main className="grid grid-cols-2 gap-8 row-start-2 items-center">
+      <main className="grid grid-cols-2 gap-4 row-start-2 items-center">
         {/* Left Column */}
         <div className="flex justify-center">
           <Image
@@ -27,7 +27,7 @@ export default function Home() {
 
         {/* Right Column */}
         <div className="flex flex-col gap-4 items-center">
-          <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>Pick a language to begin:</h3>
+          <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>{t('pickLanguage')}</h3>
 
           <div className="flex flex-row gap-4">
             <div onMouseOverCapture={() => i18next.changeLanguage('en')}>

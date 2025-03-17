@@ -7,12 +7,14 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      welcomeMessage: "Welcome to NeuroChat!"
+      welcomeMessage: "Welcome to NeuroChat!",
+      pickLanguage: "Pick a language to begin:"
     }
   },
   es: {
     translation: {
-      welcomeMessage: "¡Bienvenidos a NeuroChat!"
+      welcomeMessage: "¡Bienvenidos a NeuroChat!",
+      pickLanguage: "Elige un idioma para empezar:"
     }
   }
 };
