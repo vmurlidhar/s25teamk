@@ -10,11 +10,6 @@ const resources = {
       welcomeMessage: "Welcome to NeuroChat!"
     }
   },
-  fr: {
-    translation: {
-      welcomeMessage: "Bienvenue à React et react-i18next"
-    }
-  },
   es: {
     translation: {
       welcomeMessage: "¡Bienvenidos a NeuroChat!"
