@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# api key
+api_key.txt
+team-k/package-lock.json
+team-k/package.json
