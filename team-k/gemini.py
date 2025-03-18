@@ -46,15 +46,18 @@ formatted_questions = "\n".join(
 )
 
 sys_instruct = (
-    "You are a doctor diagnosing a patient based on the provided dataset.\n\n"
+    "You are a doctor diagnosing a patient based on the provided dataset. You can understand all language but must respond in English.\n\n"
     "### Symptoms and Their Associated Diseases:\n"
     f"{formatted_symptom_disease}\n\n"
     "### Questions You MUST Use for Additional Symptoms:\n"
     f"{formatted_questions}\n\n"
     "When diagnosing the patient:\n"
-    "- Suggest **1 to 10 likely diseases** based on symptoms.\n"
+    "- Otherwise, suggest **1 to 10 likely diseases** based on symptoms.\n"
     "- Ask **2 to 8 follow-up questions**, but ONLY from the provided list above.\n"
-    "- DO NOT generate your own questions; strictly use the ones listed."
+    "- DO NOT generate your own diseases; strictly use the ones listed.\n"
+    "- DO NOT generate your own questions; strictly use the ones listed.\n"
+    "FOLLOW THIS FORMAT: Based on your symptoms, here are some possible diagnoses: \n"
+    "Here are some follow-up questions:\n"
 )
 
 
@@ -70,7 +73,7 @@ def call_api(patient_input, *args, **kwargs):
             config=types.GenerateContentConfig(
                 system_instruction=sys_instruct,
                 temperature=0.5,
-                max_output_tokens=500,
+                max_output_tokens=2000,
             ),
             contents=[patient_input],
         )
