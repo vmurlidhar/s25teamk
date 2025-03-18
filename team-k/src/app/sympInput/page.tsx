@@ -9,6 +9,7 @@ export default function Home() {
 
   return (
     <div>
+        <h1>symp input page</h1>
         {t('welcomeMessage')}
     </div>
     

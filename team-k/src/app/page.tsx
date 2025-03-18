@@ -32,12 +32,8 @@ export default function Home() {
           <div className="flex flex-row gap-4">
             <div onMouseOverCapture={() => i18next.changeLanguage('en')}>
               <button>
-                <a
-                  className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-                  href="/sympInput.tsx"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+                href="/sympInput">
                   English
                 </a>
               </button>
@@ -45,13 +41,9 @@ export default function Home() {
             
             <div onMouseOverCapture={() => i18next.changeLanguage('es')}>
               <button>
-                <a
-                  className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-                  href="/sympInput.tsx"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Español
+                <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+                  href="/sympInput">
+                    Español
                 </a>
               </button>
             </div>
