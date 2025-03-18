@@ -5,13 +5,21 @@ const resources = {
   en: {
     translation: {
       welcomeMessage: "Welcome to NeuroChat!",
-      pickLanguage: "Pick a language to begin:"
+      pickLanguage: "Pick a language to begin:",
+      home: "Return to start page",
+      enterSymptoms: "Enter your symptoms",
+      characters: "characters",
+      submit: "Submit symptoms"
     }
   },
   es: {
     translation: {
       welcomeMessage: "¡Bienvenidos a NeuroChat!",
-      pickLanguage: "Elige un idioma para empezar:"
+      pickLanguage: "Elige un idioma para empezar:",
+      home: "Volver a la página de inicio",
+      enterSymptoms: "Ingresa tus síntomas",
+      characters: "caracteres",
+      submit: "Enviar síntomas"
     }
   }
 };
