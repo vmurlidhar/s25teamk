@@ -1,0 +1,26 @@
+prompts:
+  - 'Diagnose the patient based on their symptoms: "{{ patient_input }}"'
+
+providers:
+  - id: file://team-k/gemini.py
+
+tests:
+  - vars:
+      patient_input: "I feel shaky and keep forgetting things."
+    assert:
+      - type: contains
+        value: "Parkinson"
+      - type: contains
+        value: "Alzheimer"
+  - vars:
+      patient_input: "I have trouble walking and often lose my balance."
+    assert:
+      - type: contains
+        value: "Multiple Sclerosis"
+      - type: contains
+        value: "Parkinson"
+  - vars:
+      patient_input: "I sometimes see double and feel weak in my legs."
+    assert:
+      - type: contains
+        value: "Multiple Sclerosis"
