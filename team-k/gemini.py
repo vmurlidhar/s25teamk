@@ -1,3 +1,4 @@
+import sys
 import csv
 import json
 from google import genai
@@ -92,6 +93,9 @@ def call_api(patient_input, *args, **kwargs):
 
 # Example usage
 if __name__ == "__main__":
-    patient_input = "I feel shaky and keep forgetting things."
-    result = call_api(patient_input)
-    print(json.dumps({"input": patient_input, "response": result}, indent=2))
+    if len(sys.argv) > 1:
+        patient_input = sys.argv[1]
+        result = call_api(patient_input)
+        print(json.dumps(result))
+    else:
+        print(json.dumps({"error": "No patient input provided."}))
