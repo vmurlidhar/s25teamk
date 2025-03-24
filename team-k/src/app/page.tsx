@@ -1,14 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import "@/utils/i18n";
-import i18next from "i18next";
-import { useTranslation } from "react-i18next";
-import { changeLanguage } from "@/utils/i18n";
+import { useTranslation } from "react-i18next"; // Removed i18next import since it's not directly used
 import Image from "next/image";
 import Link from "next/link";  // Import Link from next/link
 
 export default function Home() {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(); // i18n is used here, so no need to remove it
   const [isClient, setIsClient] = useState(false);
 
   // Ensure we are on the client before rendering translations
@@ -39,8 +37,8 @@ export default function Home() {
           <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>{t('pickLanguage')}</h3>
 
           <div className="flex flex-row gap-4">
-            <div onMouseOverCapture={() => i18next.changeLanguage('en')}>
-              <button onClick={() => changeLanguage("en")}>
+            <div onMouseOverCapture={() => i18n.changeLanguage('en')}>
+              <button onClick={() => i18n.changeLanguage("en")}>
                 <Link
                   href="/sympInput"
                   className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
@@ -50,8 +48,8 @@ export default function Home() {
               </button>
             </div>
             
-            <div onMouseOverCapture={() => i18next.changeLanguage('es')}>
-              <button onClick={() => changeLanguage("es")}>
+            <div onMouseOverCapture={() => i18n.changeLanguage('es')}>
+              <button onClick={() => i18n.changeLanguage("es")}>
                 <Link
                   href="/sympInput"
                   className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
