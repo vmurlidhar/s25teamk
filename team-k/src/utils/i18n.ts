@@ -2,29 +2,6 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import resources from "./locales"; // the translations
 
-// const resources = {
-//   en: {
-//     translation: {
-//       welcomeMessage: "Welcome to NeuroChat!",
-//       pickLanguage: "Pick a language to begin:",
-//       home: "Return to start page",
-//       enterSymptoms: "Enter your symptoms",
-//       characters: "characters",
-//       submit: "Submit symptoms"
-//     }
-//   },
-//   es: {
-//     translation: {
-//       welcomeMessage: "¡Bienvenidos a NeuroChat!",
-//       pickLanguage: "Elige un idioma para empezar:",
-//       home: "Volver a la página de inicio",
-//       enterSymptoms: "Ingresa tus síntomas",
-//       characters: "caracteres",
-//       submit: "Enviar síntomas"
-//     }
-//   }
-// };
-
 // Read language from localStorage (if available)
 const savedLanguage = typeof window !== "undefined" ? localStorage.getItem("language") || "en" : "en";
 
