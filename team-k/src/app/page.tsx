@@ -11,7 +11,7 @@ export default function Home() {
       <div onClick={() => i18next.changeLanguage('en')}>English</div>
       <button onClick={() => i18next.changeLanguage('es')}>Español</button>
       <div></div>
-      {t('welcomeMessage')}
+      {t('testRes')}
     </div>
   )
 }
