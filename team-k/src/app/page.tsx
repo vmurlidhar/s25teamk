@@ -5,13 +5,14 @@ import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "@/utils/i18n";
 import Image from "next/image";
+import Link from "next/link";  // Import Link from next/link
 
 export default function Home() {
   const { t, i18n } = useTranslation();
   const [isClient, setIsClient] = useState(false);
 
   // Ensure we are on the client before rendering translations
-  useEffect(() => {setIsClient(true); }, []);
+  useEffect(() => { setIsClient(true); }, []);
 
   // Prevents mismatch during hydration
   if (!isClient) return null;
@@ -40,19 +41,23 @@ export default function Home() {
           <div className="flex flex-row gap-4">
             <div onMouseOverCapture={() => i18next.changeLanguage('en')}>
               <button onClick={() => changeLanguage("en")}>
-                <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-                href="/sympInput">
+                <Link
+                  href="/sympInput"
+                  className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+                >
                   English
-                </a>
+                </Link>
               </button>
             </div>
             
             <div onMouseOverCapture={() => i18next.changeLanguage('es')}>
               <button onClick={() => changeLanguage("es")}>
-                <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-                  href="/sympInput">
-                    Español
-                </a>
+                <Link
+                  href="/sympInput"
+                  className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+                >
+                  Español
+                </Link>
               </button>
             </div>
             
