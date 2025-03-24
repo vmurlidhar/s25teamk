@@ -23,7 +23,7 @@ export default function Home() {
 
       <main className="grid grid-cols-2 gap-4 row-start-2 items-center">
         {/* Left Column */}
-        <div className="flex justify-center">
+        <div className="flex justify-start">
           <Image
             src="/danielle.png"
             alt="Doctor Danielle"
@@ -32,9 +32,9 @@ export default function Home() {
             priority
           />
         </div>
-
+        
         {/* Right Column */}
-        <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-col gap-4 items-center justify-start min-w-[350px]">
           <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>{t('pickLanguage')}</h3>
 
           <div className="flex flex-row gap-4">
