@@ -47,6 +47,12 @@ const questions = {
   characteristicFacialReaction: "Have people commented that you often look surprised or startled, even when you don't feel that way?",
   dizziness: "Do you frequently feel dizzy or like the room is spinning around you?",
   weightLoss: "Have you lost a significant amount of weight without intentionally dieting or changing your eating habits?",
+
+  // generic answer choices
+  yes: "Yes",
+  no: "No",
+  maybe: "Maybe",
+  notSure: "I'm not sure",
 };
 
 export default questions;

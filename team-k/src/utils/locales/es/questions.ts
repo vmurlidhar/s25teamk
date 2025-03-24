@@ -45,8 +45,14 @@ const questions = {
   lossOfSexualInterest: "¿Ha experimentado una disminución significativa en su interés por la actividad sexual?",
   brightLightSensitivity: "¿Las luces brillantes le causan malestar, dolor o dificultad para ver?",
   characteristicFacialReaction: "¿La gente ha comentado que a menudo pareces sorprendido o sobresaltado, incluso cuando no te sientes así?",
-  dizziness: "¿Con frecuencia te sientes mareado o como si la habitación girara a tu alrededor?",
+  dizziness: "¿Con frecuencia sientes mareo o como si la habitación girara a tu alrededor?",
   weightLoss: "¿Ha perdido una cantidad significativa de peso sin hacer dieta o cambiar sus hábitos alimentarios intencionalmente?",
+
+  // generic answer choices
+  yes: "Sí",
+  no: "No",
+  maybe: "Tal vez",
+  notSure: "No estoy seguro/a",
 };
 
 export default questions;
