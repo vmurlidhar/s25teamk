@@ -1,9 +1,14 @@
 import csv
 import json
 from typing import List
+from fastapi import FastAPI, HTTPException
 from google import genai
 from google.genai import types
 from pydantic import BaseModel
+
+# Run the API with: uvicorn gemini.py:app --reload
+# Initialize FastAPI
+app = FastAPI()
 
 
 # Define response schema
@@ -13,14 +18,14 @@ class DiagnosisResponse(BaseModel):
 
 
 # Read the API key
-with open("team-k/api_key.txt", "r") as file:
+with open("api_key.txt", "r") as file:
     my_api_key = file.read().strip()
 
 client = genai.Client(api_key=my_api_key)
 
 # File paths
-symptom_file_path = "team-k/datasets/disease_dataset_symptoms.csv"
-question_file_path = "team-k/datasets/disease_dataset_questions.csv"
+symptom_file_path = "datasets/disease_dataset_symptoms.csv"
+question_file_path = "datasets/disease_dataset_questions.csv"
 
 
 def parse_csv_to_dict(file_path):
@@ -65,15 +70,20 @@ sys_instruct = (
 )
 
 
-def call_api(patient_input, *args, **kwargs):
-    """Function for promptfoo to call"""
-    if not patient_input or not isinstance(patient_input, str):
-        return {"error": "Invalid patient input"}
+class PatientInput(BaseModel):
+    symptoms: str
+
+
+@app.post("/diagnose", response_model=DiagnosisResponse)
+def diagnose(patient_input: PatientInput):
+    """API endpoint to diagnose based on patient symptoms."""
+    if not patient_input.symptoms:
+        raise HTTPException(status_code=400, detail="Invalid patient input")
 
     try:
         response = client.models.generate_content(
             model="gemini-2.0-flash",
-            contents=patient_input,
+            contents=patient_input.symptoms,
             config={
                 "system_instruction": sys_instruct,
                 "response_mime_type": "application/json",
@@ -84,20 +94,8 @@ def call_api(patient_input, *args, **kwargs):
         )
 
         if not response or not hasattr(response, "text"):
-            return {"error": "No valid response from API"}
+            raise HTTPException(status_code=500, detail="No valid response from API")
 
-        # Directly return validated JSON
-        return {
-            "output": response.text,
-            "parsed": response.parsed.dict(),  # Optional parsed version
-        }
-
+        return response.parsed.dict()
     except Exception as e:
-        return {"error": str(e)}
-
-
-# Example usage
-if __name__ == "__main__":
-    patient_input = "I am feeling tired and I have trouble walking outside"
-    result = call_api(patient_input)
-    print(json.dumps({"input": patient_input, "response": result}, indent=2))
+        raise HTTPException(status_code=500, detail=str(e))

@@ -44,3 +44,4 @@ next-env.d.ts
 api_key.txt
 team-k/package-lock.json
 team-k/package.json
+team-k/__pycache__/
