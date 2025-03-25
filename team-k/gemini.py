@@ -1,7 +1,16 @@
 import csv
 import json
+from typing import List
 from google import genai
 from google.genai import types
+from pydantic import BaseModel
+
+
+# Define response schema
+class DiagnosisResponse(BaseModel):
+    diseases: List[str]
+    questions: List[str]
+
 
 # Read the API key
 with open("team-k/api_key.txt", "r") as file:
@@ -39,10 +48,7 @@ formatted_symptom_disease = "\n".join(
     ]
 )
 formatted_questions = "\n".join(
-    [
-        f"- **{symptom}**: {question}"
-        for symptom, question in symptom_question_map.items()
-    ]
+    [f"{question}" for question in symptom_question_map.items()]
 )
 
 sys_instruct = (
@@ -56,42 +62,42 @@ sys_instruct = (
     "- Ask **2 to 8 follow-up questions**, but ONLY from the provided list above.\n"
     "- DO NOT generate your own diseases; strictly use the ones listed.\n"
     "- DO NOT generate your own questions; strictly use the ones listed.\n"
-    "FOLLOW THIS FORMAT: Based on your symptoms, here are some possible diagnoses: \n"
-    "Here are some follow-up questions:\n"
 )
 
 
 def call_api(patient_input, *args, **kwargs):
     """Function for promptfoo to call"""
-    # Ensure the patient_input is not empty or invalid
     if not patient_input or not isinstance(patient_input, str):
-        return {"error": "Invalid patient input. Please provide valid symptoms."}
+        return {"error": "Invalid patient input"}
 
     try:
         response = client.models.generate_content(
             model="gemini-2.0-flash",
-            config=types.GenerateContentConfig(
-                system_instruction=sys_instruct,
-                temperature=0.5,
-                max_output_tokens=2000,
-            ),
-            contents=[patient_input],
+            contents=patient_input,
+            config={
+                "system_instruction": sys_instruct,
+                "response_mime_type": "application/json",
+                "response_schema": DiagnosisResponse,
+                "temperature": 0.5,
+                "max_output_tokens": 2000,
+            },
         )
 
-        if response and hasattr(response, "text"):
-            result = response.text.strip()
-            if not result:
-                return {"error": "Empty response received from the API."}
-            return {"output": result}
-        else:
-            return {"error": "No valid response from the API."}
+        if not response or not hasattr(response, "text"):
+            return {"error": "No valid response from API"}
+
+        # Directly return validated JSON
+        return {
+            "output": response.text,
+            "parsed": response.parsed.dict(),  # Optional parsed version
+        }
 
     except Exception as e:
-        return {"error": str(e)}  # Return a dictionary with the 'error' key
+        return {"error": str(e)}
 
 
 # Example usage
 if __name__ == "__main__":
-    patient_input = "I feel shaky and keep forgetting things."
+    patient_input = "I am feeling tired and I have trouble walking outside"
     result = call_api(patient_input)
     print(json.dumps({"input": patient_input, "response": result}, indent=2))
