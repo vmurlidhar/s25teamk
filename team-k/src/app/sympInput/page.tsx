@@ -12,6 +12,8 @@ export default function SympInput() {
   const router = useRouter(); // Next.js router hook
   const [text, setText] = useState(""); // State to track input in text box
   const maxChars = 80;
+  const [result, setResult] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   // Ensure we are on the client before rendering translations
   useEffect(() => {
@@ -66,13 +68,46 @@ export default function SympInput() {
             {text.length}/{maxChars} {t('characters')}
           </p>
 
-          <button>
+          {/* <button>
             <Link
               href=""
               className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
             >
               {t('submit')}
             </Link>
+          </button> */}
+          <button onClick={async () => { {/* Submit user input button */}
+            setLoading(true);
+            setResult(null);
+
+            try {
+              const res = await fetch("/api/gemini", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ input: text }),
+              });
+
+              const data = await res.json();
+
+              if (data.output) {
+                setResult(data.output); 
+              } else if (data.response?.output) {
+                setResult(data.response.output); 
+              } else {
+                setResult("Error: " + (data.error || "Unknown response format."));
+              }
+            } catch (err) {
+              setResult("Error contacting the server.");
+              console.log(err);
+            } finally {
+              setLoading(false);
+            }
+            }}>
+            <span className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
+              {loading ? "Loading..." : t('submit')}
+            </span>
           </button>
         </div>
       </main>

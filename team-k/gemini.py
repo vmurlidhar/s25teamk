@@ -83,7 +83,7 @@ def diagnose(patient_input: PatientInput):
     """API endpoint to diagnose based on patient symptoms."""
     if not patient_input.symptoms:
         raise HTTPException(status_code=400, detail="Invalid patient input")
-
+    print(patient_input)
     print(sys_instruct)
     try:
         response = client.models.generate_content(
