@@ -1,3 +1,6 @@
+#rm -rf ~/.promptfoo (THIS CLEARS THE API CACHE)
+#promptfoo eval -c initial_diagonsis_test.yaml
+
 prompts:
   - '"{{ patient_input }}"'
 
@@ -20,7 +23,7 @@ tests:
     assert:
       - type: is-json
         value:
-          required: ["diseases", "questions"]
+          required: ["diseases", "symptoms"]
           type: object
           properties:
             diseases:
