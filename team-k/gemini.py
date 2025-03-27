@@ -91,7 +91,6 @@ def call_api(patient_input, *args, **kwargs):
         return {"error": str(e)}  # Return a dictionary with the 'error' key
 
 
-# Example usage
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         patient_input = sys.argv[1]

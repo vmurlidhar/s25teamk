@@ -82,9 +82,9 @@ export default function SympInput() {
               const data = await res.json();
 
               if (data.output) {
-                setResult(data.output);  // when API returns { output: "..." }
+                setResult(data.output); 
               } else if (data.response?.output) {
-                setResult(data.response.output); // fallback if it comes inside "response"
+                setResult(data.response.output); 
               } else {
                 setResult("Error: " + (data.error || "Unknown response format."));
               }
