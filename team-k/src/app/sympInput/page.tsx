@@ -81,7 +81,7 @@ export default function SympInput() {
             setResult(null);
 
             try {
-              const res = await fetch("/api/gemini", {
+              const res = await fetch("/api/diagnose", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -90,6 +90,7 @@ export default function SympInput() {
               });
 
               const data = await res.json();
+              console.log(data)
 
               if (data.output) {
                 setResult(data.output); 
