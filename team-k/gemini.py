@@ -6,15 +6,15 @@ from google import genai
 from google.genai import types
 from pydantic import BaseModel
 
-# Run the API with: uvicorn gemini.py:app --reload
-# Initialize FastAPI
+# Run the API with: uvicorn gemini:app --reload
+# Initialize FastAPIs
 app = FastAPI()
 
 
 # Define response schema
 class DiagnosisResponse(BaseModel):
     diseases: List[str]
-    questions: List[str]
+    symptoms: List[str]
 
 
 # Read the API key
@@ -52,19 +52,23 @@ formatted_symptom_disease = "\n".join(
         for symptom, diseases in symptom_disease_map.items()
     ]
 )
-formatted_questions = "\n".join(
-    [f"{question}" for question in symptom_question_map.items()]
+formatted_symptoms = "\n".join(
+    [f"- {symptom}" for symptom in symptom_question_map.keys()]
 )
+
+
+print(formatted_symptom_disease)
+print(formatted_symptoms)
 
 sys_instruct = (
     "You are a doctor diagnosing a patient based on the provided dataset. You can understand all language but must respond in English.\n\n"
     "### Symptoms and Their Associated Diseases:\n"
     f"{formatted_symptom_disease}\n\n"
-    "### Questions You MUST Use for Additional Symptoms:\n"
-    f"{formatted_questions}\n\n"
+    "### Follow-up Symptoms You MUST Use for Additional Symptoms:\n"
+    f"{formatted_symptoms}\n\n"
     "When diagnosing the patient:\n"
     "- Otherwise, suggest **1 to 10 likely diseases** based on symptoms.\n"
-    "- Ask **2 to 8 follow-up questions**, but ONLY from the provided list above.\n"
+    "- Choose **2 to 8 follow-up symptoms** to help narrow the diseases, but ONLY from the provided list above.\n"
     "- DO NOT generate your own diseases; strictly use the ones listed.\n"
     "- DO NOT generate your own questions; strictly use the ones listed.\n"
 )
@@ -80,6 +84,7 @@ def diagnose(patient_input: PatientInput):
     if not patient_input.symptoms:
         raise HTTPException(status_code=400, detail="Invalid patient input")
 
+    print(sys_instruct)
     try:
         response = client.models.generate_content(
             model="gemini-2.0-flash",
