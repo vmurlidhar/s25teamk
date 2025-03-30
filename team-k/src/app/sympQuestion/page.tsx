@@ -26,6 +26,8 @@ export default function SympInput() {
   };
 
   return (
+    
+
     <div className="flex flex-col items-center min-h-screen p-6 sm:p-12 gap-10 font-[family-name:var(--font-geist-sans)]">
       <button onClick={() => router.push("/")}
         className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-base h-12 px-5">
@@ -59,29 +61,37 @@ export default function SympInput() {
             {text.length}/{maxChars} {t("characters")}
           </p>
 
+          <div className="flex flex-col sm:flex-row gap-4 w-full justify-center sm:justify-start">
+            <button onClick={() => i18n.changeLanguage("en")}
+              className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-base h-12 px-5 w-full sm:w-auto">
+              <Link href="/sympInput">I'm hereeeeeeeeeeee</Link>
+            </button>
+            
+            <button onClick={() => i18n.changeLanguage("es")}
+              className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-base h-12 px-5 w-full sm:w-auto">
+              <Link href="/sympInput">Español</Link>
+            </button>
+          </div>
+
           <button className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-base h-12 px-5 w-full sm:w-auto">
-            <Link href="/sympQuestion">{t("submit")}</Link>
+            <Link href="">{t("submit")}</Link>
           </button>
         </div>
       </main>
       <div className="flex flex-row gap-4">
-        <div onMouseOverCapture={() => i18n.changeLanguage('en')} className="w-full sm:w-auto">
-          <button onClick={() => i18n.changeLanguage("en")}>
-            <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="/sympInput">
-              English
-            </a>
-          </button>
-        </div>
+        <button onClick={() => i18n.changeLanguage("en")}>
+          <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+          href="/sympInput">
+            English
+          </a>
+        </button>
 
-        <div onMouseOverCapture={() => i18n.changeLanguage('es')} className="w-full sm:w-auto">
-          <button onClick={() => i18n.changeLanguage("es")}>
-            <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-              href="/sympInput">
-                Español
-            </a>
-          </button>
-        </div>
+        <button onClick={() => i18n.changeLanguage("es")}>
+          <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+            href="/sympInput">
+              Español
+          </a>
+        </button>
       </div>
     </div>
   );
