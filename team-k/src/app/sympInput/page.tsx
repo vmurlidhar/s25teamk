@@ -12,12 +12,21 @@ export default function SympInput() {
   const router = useRouter();
   const [text, setText] = useState("");
   const maxChars = 80;
+  const [result, setResult] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (result !== null) {
+      router.push(`/sympQuestion?output=${encodeURIComponent(JSON.stringify(result))}`);
+    }
+  }, [result, router]);
+
   if (!isClient) return null;
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= maxChars) {
@@ -59,8 +68,49 @@ export default function SympInput() {
             {text.length}/{maxChars} {t("characters")}
           </p>
 
-          <button className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-base h-12 px-5 w-full sm:w-auto">
-            <Link href="/sympQuestion">{t("submit")}</Link>
+          {/* <button>
+            <Link
+              href=""
+              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+            >
+              {t('submit')}
+            </Link>
+          </button> */}
+          <button onClick={async () => { {/* Submit user input button */}
+            setLoading(true);
+            setResult(null);
+
+            try {
+              const res = await fetch("/api/diagnose", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ input: text }),
+              });
+
+              const data = await res.json();
+              console.log(data)
+
+              if (data.diseases && data.symptoms) {
+                setResult(data); 
+                // if (result != null) {
+                //   router.push(`/sympQuestion?output=${encodeURIComponent(result)}`);
+                // }
+              } else {
+                setResult("Error: " + (data.error || "Unknown response format."));
+              }
+              
+            } catch (err) {
+              setResult("Error contacting the server.");
+              console.log(err);
+            } finally {
+              setLoading(false);
+            }
+            }}>
+            <span className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
+              {loading ? "Loading..." : t('submit')}
+            </span>
           </button>
         </div>
       </main>
