@@ -1,6 +1,7 @@
 const questions = {
   // question asking user to enter symptoms
   enterSymptoms: "Ingresa tus síntomas",
+  typeHere: "Escribe aquí...",
   characters: "caracteres",
   submit: "Enviar síntomas",
 
