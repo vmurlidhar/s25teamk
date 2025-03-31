@@ -61,7 +61,7 @@ export default function SympInput() {
             value={text}
             onChange={handleChange}
             maxLength={maxChars}
-            placeholder="Type here..."
+            placeholder={t("typeHere")}
             className="border rounded-lg p-3 w-full sm:w-80 min-h-[150px] resize-y text-lg text-black"
           />
           <p className="mt-2 text-gray-500 text-sm">
