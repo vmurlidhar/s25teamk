@@ -1,4 +1,5 @@
 #rm -rf ~/.promptfoo (THIS CLEARS THE API CACHE)
+#promptfoo eval -c initial_diagonsis_test.yaml
 
 prompts:
   - '"{{ patient_input }}"'

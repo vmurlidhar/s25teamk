@@ -1,0 +1,56 @@
+#rm -rf ~/.promptfoo (THIS CLEARS THE API CACHE)
+#promptfoo eval -c final_diagnosis_test.yaml
+
+prompts:
+  - '"{{ patient_input }}"'
+
+providers:
+  - id: https
+    config:
+      url: "http://127.0.0.1:8000/final_diagnose" # Update if using a remote server
+      method: "POST"
+      headers:
+        "Content-Type": "application/json"
+      body:
+        symptoms: "{{prompt}}" # This matches the expected FastAPI input
+      transformResponse: "json" # Extract the full JSON response
+
+tests:
+  - vars:
+      patient_input: "I am forgetting where i put my belongings\nmemoryLoss - yes\ntroubleConcentrating - no\npoorDecisionMaking - not sure\ndifficultyPlanning - yes\nsocialWithdrawal - no\nmoodSwings - no"
+    options:
+      transform: output
+    assert:
+      - type: is-json
+        value:
+          required: ["first_disease", "second_disease", "third_disease"]
+          type: object
+          properties:
+            first_disease:
+              type: string
+            second_disease:
+              type: string
+            third_disease:
+              type: string
+      - type: javascript
+        value: /alzheimer/i.test(output.first_disease)
+
+  - vars:
+      patient_input: "I have trouble walking and often lose my balance.\nslurredSpeech-yes\nuncontrolledEyeMovements-yes\nhandFineMotorWeakness-yes\ntroubleSwallowing-yes"
+      transform: output
+    assert:
+      - type: is-json
+        value:
+          required: ["first_disease", "second_disease", "third_disease"]
+          type: object
+          properties:
+            first_disease:
+              type: string
+            second_disease:
+              type: string
+            third_disease:
+              type: string
+      - type: javascript
+        value: /ataxia/i.test(output.first_disease)
+      - type: javascript
+        value: /Multiple System Atrophy/i.test(output.second_disease)
