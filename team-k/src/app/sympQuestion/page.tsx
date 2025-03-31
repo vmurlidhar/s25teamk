@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "@/utils/i18n";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,6 +13,9 @@ export default function SympInput() {
   const router = useRouter();
   const [text, setText] = useState("");
   const maxChars = 80;
+
+  const searchParams = useSearchParams();
+  const output = searchParams.get("output"); // Extract query parameter
 
   useEffect(() => {
     setIsClient(true);
@@ -62,9 +66,9 @@ export default function SympInput() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 w-full justify-center sm:justify-start">
-            <button onClick={() => i18n.changeLanguage("en")}
+            <button onClick={() => console.log(output)}
               className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-base h-12 px-5 w-full sm:w-auto">
-              <Link href="/sympInput">I'm hereeeeeeeeeeee</Link>
+              <Link href="/sympInput">Im hereeeeeeeeeeee</Link>
             </button>
             
             <button onClick={() => i18n.changeLanguage("es")}

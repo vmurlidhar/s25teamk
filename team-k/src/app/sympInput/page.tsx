@@ -19,7 +19,14 @@ export default function SympInput() {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (result !== null) {
+      router.push(`/sympQuestion?output=${encodeURIComponent(JSON.stringify(result))}`);
+    }
+  }, [result, router]);
+
   if (!isClient) return null;
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= maxChars) {
@@ -85,13 +92,15 @@ export default function SympInput() {
               const data = await res.json();
               console.log(data)
 
-              if (data.output) {
-                setResult(data.output); 
-              } else if (data.response?.output) {
-                setResult(data.response.output); 
+              if (data.diseases && data.symptoms) {
+                setResult(data); 
+                // if (result != null) {
+                //   router.push(`/sympQuestion?output=${encodeURIComponent(result)}`);
+                // }
               } else {
                 setResult("Error: " + (data.error || "Unknown response format."));
               }
+              
             } catch (err) {
               setResult("Error contacting the server.");
               console.log(err);
