@@ -12,7 +12,7 @@ export default function SympInput() {
   const router = useRouter();
   const [text, setText] = useState("");
   const maxChars = 80;
-  const [result, setResult] = useState<string | null>(null);
+  const [result, setResult] = useState<any | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -68,14 +68,6 @@ export default function SympInput() {
             {text.length}/{maxChars} {t("characters")}
           </p>
 
-          {/* <button>
-            <Link
-              href=""
-              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            >
-              {t('submit')}
-            </Link>
-          </button> */}
           <button onClick={async () => { {/* Submit user input button */}
             setLoading(true);
             setResult(null);
@@ -90,13 +82,15 @@ export default function SympInput() {
               });
 
               const data = await res.json();
-              console.log(data)
 
               if (data.diseases && data.symptoms) {
-                setResult(data); 
-                // if (result != null) {
-                //   router.push(`/sympQuestion?output=${encodeURIComponent(result)}`);
-                // }
+                const newData = {
+                  diseases: data.diseases,
+                  symptoms: data.symptoms,
+                  userInput: text
+                };
+
+                setResult(newData); 
               } else {
                 setResult("Error: " + (data.error || "Unknown response format."));
               }

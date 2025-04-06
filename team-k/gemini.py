@@ -17,7 +17,7 @@ QUESTION_CSV_PATH = "datasets/disease_dataset_questions.csv"
 GEMINI_MODEL = "gemini-2.0-flash"
 GEMINI_CONFIG = {
     "response_mime_type": "application/json",
-    "temperature": 0.5,
+    "temperature": 0.75,
     "max_output_tokens": 2000,
 }
 
