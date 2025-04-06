@@ -53,4 +53,4 @@ tests:
       - type: javascript
         value: /ataxia/i.test(output.first_disease)
       - type: javascript
-        value: /Multiple System Atrophy/i.test(output.second_disease)
+        value: /multipleSystemAtrophy/i.test(output.second_disease)

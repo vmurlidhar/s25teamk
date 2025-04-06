@@ -33,7 +33,9 @@ export default function SympInput() {
         <Link href="/">{t("home")}</Link>
       </button>
 
+      <p className="text-sm sm:text-xl font-bold text-center">{t('medicalAdviceWarning')}</p>
       <main className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center w-full max-w-4xl">
+
         {/* Left Column */}
         <div className="flex justify-center">
           <Image

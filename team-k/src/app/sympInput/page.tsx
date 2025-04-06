@@ -20,6 +20,7 @@ export default function SympInput() {
   }, []);
 
   useEffect(() => {
+    
     if (result !== null) {
       router.push(`/sympQuestion?output=${encodeURIComponent(JSON.stringify(result))}`);
     }
