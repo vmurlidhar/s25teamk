@@ -1,42 +1,43 @@
-Tremor,"Parkinson's Disease, Multiple System Atrophy"
-Slowed movement,Parkinson's Disease
-Rigid muscles,"Parkinson's Disease, Multiple System Atrophy, Progressive Supranuclear Palsy"
-Poor posture,"Parkinson's Disease, Huntington's Disease, Multiple System Atrophy"
-Poor balance,"Parkinson's Disease, Ataxia, Huntington's Disease, Multiple System Atrophy, Progressive Supranuclear Palsy"
-Loss of automatic movement,"Parkinson's Disease, Multiple System Atrophy"
-Slurred speech,"Parkinson's Disease, Ataxia, Multiple System Atrophy, ALS, Huntington's Disease, Motor Neuron Disease, Progressive Supranuclear Palsy"
-Writing changes,Parkinson's Disease
-Loss of bladder or bowel control,"Parkinsons's Disease, Multiple System Atrophy"
-Depression,"Parkinson's Disease, Alzheimer's Disease, Huntington's Disease, Progressive Supranuclear Palsy"
-Sleep issues,"Parkinson's Disease, Alzheimer's Disease, Multiple System Atrophy, Progressive Supranuclear Palsy"
-Trouble walking,"ALS, Multiple Sclerosis, Huntington's Disease, Ataxia, Multiple System Atrophy"
-Lower limb weakness,"ALS, Motor Neuron Disease"
-Hand fine-motor weakness or clumsiness,"ALS, Ataxia"
-Trouble swallowing,"ALS, Ataxia, Huntington's Disease, Motor Neuron Disease, Multiple System Atrophy, Progressive Supranuclear Palsy"
-Muscle cramps and twitching,"ALS, Motor Neuron Disease"
-Emotional instability (inappropriate crying/laughing),"ALS, Motor Neuron Disease, Multiple System Atrophy, Progressive Supranuclear Palsy"
-Thinking or behavioral changes,"ALS, Progressive Supranuclear Palsy"
-Memory loss,Alzheimer's Disease
-Trouble concentrating and thinking,"Alzheimer's Disease, Progressive Supranuclear Palsy"
-Poor decision-making and judgment,Alzheimer's Disease
-Difficulty planning and performing familiar tasks,Alzheimer's Disease
-Social withdrawal,Alzheimer's Disease
-Mood swings,Alzheimer's Disease
-Numbness,Multiple Sclerosis
-Muscle weakness,Multiple Sclerosis
-"Blurred, double, or loss of vision","Multiple Sclerosis, Multiple System Atrophy"
-Involuntary movements (chorea),Huntington's Disease
-Trouble focusing eyes,"Huntington's Disease, Progressive Supranuclear Palsy"
-Lack of impulse control,Huntington's Disease
-"Trouble organizing, prioritizing, or focusing",Huntington's Disease
-Obsessive-compulsive disorder,Huntington's Disease
-Mania,Huntington's Disease
-Uncontrolled eye movements,"Huntington's Disease, Ataxia"
-Poor coordination,Ataxia
-Low blood pressure,Multiple System Atrophy
-Reduced sweating,Multiple System Atrophy
-Loss of interest in sex,Multiple System Atrophy
-Sensitivity to bright light,Progressive Supranuclear Palsy
-Characteristic surprised/frightened facial expression,Progressive Supranuclear Palsy
-Dizziness,Progressive Supranuclear Palsy
-Weight loss,Motor Neuron Disease
+Symptom,Diseases
+Tremor,"parkinsonsDisease, multipleSystemAtrophy"
+Slowed movement,parkinsonsDisease
+Rigid muscles,"parkinsonsDisease, multipleSystemAtrophy, progressiveSupranuclearPalsy"
+Poor posture,"parkinsonsDisease, huntingtonsDisease, multipleSystemAtrophy"
+Poor balance,"parkinsonsDisease, ataxia, huntingtonsDisease, multipleSystemAtrophy, progressiveSupranuclearPalsy"
+Loss of automatic movement,"parkinsonsDisease, multipleSystemAtrophy"
+Slurred speech,"parkinsonsDisease, ataxia, multipleSystemAtrophy, als, huntingtonsDisease, motorNeuronDisease, progressiveSupranuclearPalsy"
+Writing changes,parkinsonsDisease
+Loss of bladder or bowel control,"parkinsonsDisease, multipleSystemAtrophy"
+Depression,"parkinsonsDisease, alzheimersDisease, huntingtonsDisease, progressiveSupranuclearPalsy"
+Sleep issues,"parkinsonsDisease, alzheimersDisease, multipleSystemAtrophy, progressiveSupranuclearPalsy"
+Trouble walking,"als, multipleSclerosis, huntingtonsDisease, ataxia, multipleSystemAtrophy"
+Lower limb weakness,"als, motorNeuronDisease"
+Hand fine-motor weakness or clumsiness,"als, ataxia"
+Trouble swallowing,"als, ataxia, huntingtonsDisease, motorNeuronDisease, multipleSystemAtrophy, progressiveSupranuclearPalsy"
+Muscle cramps and twitching,"als, motorNeuronDisease"
+Emotional instability (inappropriate crying/laughing),"als, motorNeuronDisease, multipleSystemAtrophy, progressiveSupranuclearPalsy"
+Thinking or behavioral changes,"als, progressiveSupranuclearPalsy"
+Memory loss,alzheimersDisease
+Trouble concentrating and thinking,"alzheimersDisease, progressiveSupranuclearPalsy"
+Poor decision-making and judgment,alzheimersDisease
+Difficulty planning and performing familiar tasks,alzheimersDisease
+Social withdrawal,alzheimersDisease
+Mood swings,alzheimersDisease
+Numbness,multipleSclerosis
+Muscle weakness,multipleSclerosis
+Blurred, double, or loss of vision, "multipleSclerosis, multipleSystemAtrophy"
+Involuntary movements (chorea),huntingtonsDisease
+Trouble focusing eyes,"huntingtonsDisease, progressiveSupranuclearPalsy"
+Lack of impulse control,huntingtonsDisease
+Trouble organizing,prioritizing, or focusing, huntingtonsDisease
+Obsessive-compulsive disorder,huntingtonsDisease
+Mania,huntingtonsDisease
+Uncontrolled eye movements,"huntingtonsDisease, ataxia"
+Poor coordination,ataxia
+Low blood pressure,multipleSystemAtrophy
+Reduced sweating,multipleSystemAtrophy
+Loss of interest in sex,multipleSystemAtrophy
+Sensitivity to bright light,progressiveSupranuclearPalsy
+Characteristic surprised/frightened facial expression,progressiveSupranuclearPalsy
+Dizziness,progressiveSupranuclearPalsy
+Weight loss,motorNeuronDisease

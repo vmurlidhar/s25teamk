@@ -12,8 +12,11 @@ export default function SympInput() {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   const [symptoms, setSymptoms] = useState<string[]>([]);
+  const [userInput, setUserInput] = useState<string | null>("");
   const [symptomAnswers, setSymptomAnswers] = useState<{ symptom: string; answer: boolean }[]>([]);
   const [currentSymptomIndex, setCurrentSymptomIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [diseaseList, setDiseaseList] = useState<any | null>(null);
 
   const searchParams = useSearchParams();
   useEffect(() => {
@@ -24,6 +27,7 @@ export default function SympInput() {
         const parsedData = JSON.parse(decodeURIComponent(output));
         if (parsedData.symptoms) {
           setSymptoms(parsedData.symptoms);
+          setUserInput(parsedData.userInput);
           sessionStorage.setItem("diagnosisResult", JSON.stringify(parsedData)); // Store in sessionStorage
         }
       } catch (error) {
@@ -43,6 +47,12 @@ export default function SympInput() {
       }
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    if (diseaseList !== null) {
+      router.push(`/resultsPage?output=${encodeURIComponent(JSON.stringify(diseaseList))}`);
+    }
+  }, [diseaseList, router]);
 
   const handleAnswer = (answer: boolean) => {
     const symptom = symptoms[currentSymptomIndex];
@@ -111,7 +121,35 @@ export default function SympInput() {
               </div>
             </div>
           ) : (
-            <h3 className="text-xl sm:text-2xl font-bold">End of array.</h3>
+            // <h3 className="text-xl sm:text-2xl font-bold">End of array.</h3>
+            <button onClick={async () => { {/* Submit user input button */}
+              setLoading(true);
+              //setDiseaseList(null);
+              console.log(diseaseList);
+
+              try {
+                const res = await fetch("/api/final_diagnose", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ input: JSON.stringify({symptomAnswers, userInput}) }),
+                });
+
+                const data = await res.json();
+                setDiseaseList(data);
+              } catch (err) {
+                setDiseaseList("Error contacting the server.");
+                console.log(err);
+              } finally {
+                setLoading(false);
+              }
+              }}>
+              <span className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
+                {loading ? "Loading..." : t('submit')}
+              </span>
+          </button>
+
           )}
         </div>
       </main>

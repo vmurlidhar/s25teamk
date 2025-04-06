@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import Link from "next/link";
 
+
 export default function Home() {
   const { t, i18n } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -18,6 +19,7 @@ export default function Home() {
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-items-center min-h-screen p-6 sm:p-20 gap-10 font-[family-name:var(--font-geist-sans)]">
       <h1 className="text-4xl sm:text-7xl font-bold text-center w-full">{t('welcomeMessage')}</h1>
+      <p className="text-sm sm:text-xl font-bold text-center">{t('privacyWarning')}</p>
 
       <main className="grid grid-cols-1 sm:grid-cols-2 gap-4 row-start-2 items-center w-full max-w-4xl">
         {/* Left Column */}
