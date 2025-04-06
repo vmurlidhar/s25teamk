@@ -34,3 +34,14 @@ To test whether the LLM correctly diagnoses specific diseases, you can run evalu
 promptfoo eval -c initial_diagonsis_test.yaml
 promptfoo eval -c final_diagnosis_test.yaml
 ```
+
+## Updating the Disease Dataset
+
+The LLM utilizes data from the following CSV files:
+
+- `team-k/datasets/disease_dataset_questions.csv`
+- `team-k/datasets/disease_dataset_symptoms.csv`
+
+To update the dataset, simply add the relevant diseases, symptoms, and follow-up questions to these CSV files.
+
+Additionally, for proper localization, follow-up questions need to be added in both English and Spanish. These should be placed in the corresponding files within the `team-k/src/utils/locales` directory.
