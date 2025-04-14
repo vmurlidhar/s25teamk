@@ -10,6 +10,7 @@ import Link from "next/link";
 export default function SympInput() {
   const { t, i18n } = useTranslation();
   const [isClient, setIsClient] = useState(false);
+  const [diseaseList, setDiseaseList] = useState<any>({});
   const router = useRouter();
 
   useEffect(() => {
@@ -19,9 +20,12 @@ export default function SympInput() {
       console.warn("No disease list found — user may have refreshed or landed directly.");
       // Optional: redirect back or show an error
       // router.push('/someFallbackPage');
+
+      setDiseaseList([]);
     } else {
       // do something with diseaseList (or store it in local state)
       console.log("Disease list:", diseaseList);
+      setDiseaseList(diseaseList);
     }
   }, []);
 
@@ -41,23 +45,30 @@ export default function SympInput() {
       </button>
 
       <p className="text-sm sm:text-xl font-bold text-center">{t('medicalAdviceWarning')}</p>
-      <main className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center w-full max-w-4xl">
+      <main className="grid grid-cols-1 sm:grid-cols-1 gap-6 items-center w-full max-w-4xl">
 
-        {/* Left Column */}
-        <div className="flex justify-center">
-          <Image
-            src="/danielle.png"
-            alt="Doctor Danielle"
-            width={180}
-            height={38}
-            priority
-          />
-        </div>
+        {diseaseList ? (
+          Object.values(diseaseList).map((diseaseKey) => (
+            console.log("Disease Key:", diseaseKey),
+            <div key={diseaseKey as string} className="p-4 border rounded-md shadow-md w-full">
+              <h3 className="text-lg sm:text-xl font-bold">
+                {t(`${diseaseKey}.name`, { defaultValue: "Unknown Disease" })}
+              </h3>
+              <p className="text-sm sm:text-base">
+                <strong>{t("symptoms")}:</strong>{" "}
+                {t(`${diseaseKey}.symptoms`, { defaultValue: "No symptoms available" })}
+              </p>
+              <p className="text-sm sm:text-base">
+                <strong>{t("treatment")}:</strong>{" "}
+                {t(`${diseaseKey}.treatment`, { defaultValue: "No treatment available" })}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p>{t("noDiseasesFound")}</p>
+        )}
 
-        {/* Right Column */}
-        <div className="flex flex-col gap-4 items-center sm:items-start w-full">    
-          
-        </div>
+        
       </main>
       <div className="flex flex-row gap-4">
       <div onMouseOverCapture={() => i18n.changeLanguage('en')} className="w-full sm:w-auto">
