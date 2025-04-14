@@ -13,7 +13,9 @@ export default function SympInput() {
   const router = useRouter();
   const [symptoms, setSymptoms] = useState<string[]>([]);
   const [userInput, setUserInput] = useState<string | null>("");
-  const [symptomAnswers, setSymptomAnswers] = useState<{ symptom: string; answer: boolean }[]>([]);
+  const [symptomAnswers, setSymptomAnswers] = useState<
+    { symptom: string; answer: boolean }[]
+  >([]);
   const [currentSymptomIndex, setCurrentSymptomIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [diseaseList, setDiseaseList] = useState<any | null>(null);
@@ -50,7 +52,9 @@ export default function SympInput() {
 
   useEffect(() => {
     if (diseaseList !== null) {
-      router.push(`/resultsPage?output=${encodeURIComponent(JSON.stringify(diseaseList))}`);
+      router.push(
+        `/resultsPage?output=${encodeURIComponent(JSON.stringify(diseaseList))}`
+      );
     }
   }, [diseaseList, router]);
 
@@ -77,11 +81,11 @@ export default function SympInput() {
   if (!isClient) return null;
 
   return (
-    
-
     <div className="flex flex-col items-center min-h-screen p-6 sm:p-12 gap-10 font-[family-name:var(--font-geist-sans)]">
-      <button onClick={() => router.push("/")}
-        className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-base h-12 px-5">
+      <button
+        onClick={() => router.push("/")}
+        className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-base h-12 px-5"
+      >
         <Link href="/">{t("home")}</Link>
       </button>
 
@@ -98,11 +102,13 @@ export default function SympInput() {
         </div>
 
         {/* Right Column */}
-        <div className="flex flex-col gap-4 items-center sm:items-start w-full">    
+        <div className="flex flex-col gap-4 items-center sm:items-start w-full">
           {symptoms.length > 0 && currentSymptomIndex < symptoms.length ? (
             <div>
               {/* Show the current symptom */}
-              <h3 className="text-xl sm:text-2xl font-bold">{t(symptoms[currentSymptomIndex])}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold">
+                {t(symptoms[currentSymptomIndex])}
+              </h3>
 
               {/* Yes / No buttons */}
               <div className="mt-4 flex gap-4">
@@ -121,53 +127,62 @@ export default function SympInput() {
               </div>
             </div>
           ) : (
-            // <h3 className="text-xl sm:text-2xl font-bold">End of array.</h3>
-            <button onClick={async () => { {/* Submit user input button */}
-              setLoading(true);
-              //setDiseaseList(null);
-              console.log(diseaseList);
+            <div className="flex flex-col items-center gap-4">
+              {symptomAnswers.length === 0 ? (
+                <h3 className="text-xl sm:text-2xl font-bold text-center">
+                  {t("sorryNoSymptoms")}
+                </h3>
+              ) : (
+                <button
+                  onClick={async () => {
+                    setLoading(true);
+                    try {
+                      const res = await fetch("/api/final_diagnose", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          input: JSON.stringify({ symptomAnswers, userInput }),
+                        }),
+                      });
 
-              try {
-                const res = await fetch("/api/final_diagnose", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({ input: JSON.stringify({symptomAnswers, userInput}) }),
-                });
-
-                const data = await res.json();
-                setDiseaseList(data);
-              } catch (err) {
-                setDiseaseList("Error contacting the server.");
-                console.log(err);
-              } finally {
-                setLoading(false);
-              }
-              }}>
-              <span className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
-                {loading ? "Loading..." : t('submit')}
-              </span>
-          </button>
-
+                      const data = await res.json();
+                      setDiseaseList(data);
+                    } catch (err) {
+                      setDiseaseList("Error contacting the server.");
+                      console.error(err);
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                >
+                  <span className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
+                    {loading ? "Loading..." : t("submit")}
+                  </span>
+                </button>
+              )}
+            </div>
           )}
         </div>
       </main>
       <div className="flex flex-row gap-4">
-      <div onMouseOverCapture={() => i18n.changeLanguage('en')} className="w-full sm:w-auto">
+        <div
+          onMouseOverCapture={() => i18n.changeLanguage("en")}
+          className="w-full sm:w-auto"
+        >
           <button onClick={() => i18n.changeLanguage("en")}>
-            <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            >
+            <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
               English
             </a>
           </button>
         </div>
 
-        <div onMouseOverCapture={() => i18n.changeLanguage('es')} className="w-full sm:w-auto">
+        <div
+          onMouseOverCapture={() => i18n.changeLanguage("es")}
+          className="w-full sm:w-auto"
+        >
           <button onClick={() => i18n.changeLanguage("es")}>
-            <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-              >
-                Español
+            <a className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
+              Español
             </a>
           </button>
         </div>
