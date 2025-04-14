@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import "@/utils/i18n";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useResultStore } from "../stores/resultStore";
+// import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,35 +19,48 @@ export default function SympInput() {
   const [loading, setLoading] = useState(false);
   const [diseaseList, setDiseaseList] = useState<any | null>(null);
 
-  const searchParams = useSearchParams();
   useEffect(() => {
-    const output = searchParams.get("output");
-
-    if (output) {
-      try {
-        const parsedData = JSON.parse(decodeURIComponent(output));
-        if (parsedData.symptoms) {
-          setSymptoms(parsedData.symptoms);
-          setUserInput(parsedData.userInput);
-          sessionStorage.setItem("diagnosisResult", JSON.stringify(parsedData)); // Store in sessionStorage
-        }
-      } catch (error) {
-        console.error("Error parsing output:", error);
-      }
+    const storeData = useResultStore.getState().result;
+  
+    if (storeData?.symptoms) {
+      setSymptoms(storeData.symptoms);
+      setUserInput(storeData.userInput);
+      console.log(symptoms);
     } else {
-      const storedData = sessionStorage.getItem("diagnosisResult");
-      if (storedData) {
-        try {
-          const parsedData = JSON.parse(storedData);
-          if (parsedData.symptoms) {
-            setSymptoms(parsedData.symptoms);
-          }
-        } catch (error) {
-          console.error("Error parsing session storage data:", error);
-        }
-      }
+      console.warn("No result found in store. Did user land here directly?");
+      // Optionally redirect or show a fallback
     }
-  }, [searchParams]);
+  }, [symptoms]);
+
+  // const searchParams = useSearchParams();
+  // useEffect(() => {
+  //   const output = searchParams.get("output");
+
+  //   if (output) {
+  //     try {
+  //       const parsedData = JSON.parse(decodeURIComponent(output));
+  //       if (parsedData.symptoms) {
+  //         setSymptoms(parsedData.symptoms);
+  //         setUserInput(parsedData.userInput);
+  //         sessionStorage.setItem("diagnosisResult", JSON.stringify(parsedData)); // Store in sessionStorage
+  //       }
+  //     } catch (error) {
+  //       console.error("Error parsing output:", error);
+  //     }
+  //   } else {
+  //     const storedData = sessionStorage.getItem("diagnosisResult");
+  //     if (storedData) {
+  //       try {
+  //         const parsedData = JSON.parse(storedData);
+  //         if (parsedData.symptoms) {
+  //           setSymptoms(parsedData.symptoms);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error parsing session storage data:", error);
+  //       }
+  //     }
+  //   }
+  // }, [searchParams]);
 
   useEffect(() => {
     if (diseaseList !== null) {
