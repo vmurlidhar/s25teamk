@@ -4,7 +4,7 @@ import "@/utils/i18n";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { useResultStore } from "../stores/resultStore";
-// import { useSearchParams } from "next/navigation";
+import { useDiseaseStore } from "../stores/diseaseStore";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -32,9 +32,16 @@ export default function SympInput() {
     }
   }, [symptoms]);
 
+  // useEffect(() => {
+  //   if (diseaseList !== null) {
+  //     router.push(`/resultsPage?output=${encodeURIComponent(JSON.stringify(diseaseList))}`);
+  //   }
+  // }, [diseaseList, router]);
+
   useEffect(() => {
     if (diseaseList !== null) {
-      router.push(`/resultsPage?output=${encodeURIComponent(JSON.stringify(diseaseList))}`);
+      useDiseaseStore.getState().setDiseaseList(diseaseList);
+      router.push('/resultsPage');
     }
   }, [diseaseList, router]);
 
