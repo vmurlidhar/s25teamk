@@ -1,8 +1,9 @@
-import { create } from 'zustand';
+import { create } from "zustand";
+import { DiagnosisResult } from "../types/DiagnosisResult";
 
 interface ResultState {
-  result: any;
-  setResult: (data: any) => void;
+  result: DiagnosisResult | string | null;
+  setResult: (data: DiagnosisResult | string | null) => void;
 }
 
 export const useResultStore = create<ResultState>((set) => ({

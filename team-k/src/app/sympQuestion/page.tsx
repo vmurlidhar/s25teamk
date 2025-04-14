@@ -7,6 +7,7 @@ import { useResultStore } from "../stores/resultStore";
 import { useDiseaseStore } from "../stores/diseaseStore";
 import Image from "next/image";
 import Link from "next/link";
+import { DiagnosisResult } from "../types/DiagnosisResult";
 
 export default function SympInput() {
   const { t, i18n } = useTranslation();
@@ -19,18 +20,33 @@ export default function SympInput() {
   >([]);
   const [currentSymptomIndex, setCurrentSymptomIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [diseaseList, setDiseaseList] = useState<any | null>(null);
+  const [diseaseList, setDiseaseList] = useState<string[] | string | null>(
+    null
+  );
+
+  function isDiagnosisResult(obj: unknown): obj is DiagnosisResult {
+    return (
+      typeof obj === "object" &&
+      obj !== null &&
+      "symptoms" in obj &&
+      Array.isArray((obj as DiagnosisResult).symptoms) &&
+      "userInput" in obj &&
+      typeof (obj as DiagnosisResult).userInput === "string"
+    );
+  }
 
   useEffect(() => {
     const storeData = useResultStore.getState().result;
 
-    if (storeData?.symptoms) {
-      setSymptoms(storeData.symptoms);
-      setUserInput(storeData.userInput);
-      console.log(symptoms);
-    } else {
-      console.warn("No result found in store. Did user land here directly?");
-      // Optionally redirect or show a fallback
+    if (isDiagnosisResult(storeData)) {
+      if (storeData?.symptoms) {
+        setSymptoms(storeData.symptoms);
+        setUserInput(storeData.userInput);
+        console.log(symptoms);
+      } else {
+        console.warn("No result found in store. Did user land here directly?");
+        // Optionally redirect or show a fallback
+      }
     }
   }, [symptoms]);
 

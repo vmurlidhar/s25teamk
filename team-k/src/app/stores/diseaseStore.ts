@@ -1,9 +1,9 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface DiseaseData {
   // replace `any` with the actual type if known
-  diseaseList: any;
-  setDiseaseList: (data: any) => void;
+  diseaseList: string[] | string | null;
+  setDiseaseList: (data: string[] | string | null) => void;
 }
 
 export const useDiseaseStore = create<DiseaseData>((set) => ({
