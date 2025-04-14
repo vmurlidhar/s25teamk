@@ -7,6 +7,8 @@ const misc = {
   medicalAdviceWarning: "NeuroChat provides informational guidance only and should NOT be used as a formal diagnosis. If you are concerned about your symptoms, please consult a qualified healthcare professional.",
   symptoms: "Symptom",
   treatment: "Treatment",
+  sorryNoSymptoms:
+    "Sorry, we did not recongize any symptoms from your response in our database. Please try again or consult a medical professional.",
 };
 
 export default misc;

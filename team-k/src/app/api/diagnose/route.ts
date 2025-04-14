@@ -18,10 +18,17 @@ export async function POST(request: Request) {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-  } catch (error: any) {
-    console.error("Error contacting FastAPI:", error.message);
+  } catch (error: unknown) {
+    let errorMessage = "Server Error";
+    if (error instanceof Error) {
+      console.error("Error contacting FastAPI:", error.message);
+      errorMessage = error.message;
+    } else {
+      console.error("Unknown error contacting FastAPI:", error);
+    }
+
     return new Response(
-      JSON.stringify({ error: error.message || "Server Error" }),
+      JSON.stringify({ error: errorMessage || "Server Error" }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
