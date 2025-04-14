@@ -32,36 +32,6 @@ export default function SympInput() {
     }
   }, [symptoms]);
 
-  // const searchParams = useSearchParams();
-  // useEffect(() => {
-  //   const output = searchParams.get("output");
-
-  //   if (output) {
-  //     try {
-  //       const parsedData = JSON.parse(decodeURIComponent(output));
-  //       if (parsedData.symptoms) {
-  //         setSymptoms(parsedData.symptoms);
-  //         setUserInput(parsedData.userInput);
-  //         sessionStorage.setItem("diagnosisResult", JSON.stringify(parsedData)); // Store in sessionStorage
-  //       }
-  //     } catch (error) {
-  //       console.error("Error parsing output:", error);
-  //     }
-  //   } else {
-  //     const storedData = sessionStorage.getItem("diagnosisResult");
-  //     if (storedData) {
-  //       try {
-  //         const parsedData = JSON.parse(storedData);
-  //         if (parsedData.symptoms) {
-  //           setSymptoms(parsedData.symptoms);
-  //         }
-  //       } catch (error) {
-  //         console.error("Error parsing session storage data:", error);
-  //       }
-  //     }
-  //   }
-  // }, [searchParams]);
-
   useEffect(() => {
     if (diseaseList !== null) {
       router.push(`/resultsPage?output=${encodeURIComponent(JSON.stringify(diseaseList))}`);
