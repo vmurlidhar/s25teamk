@@ -116,7 +116,7 @@ export default function SympInput() {
               </h3>
 
               {/* Yes / No buttons */}
-              <div className="mt-4 flex gap-4">
+              <div className="mt-4 flex gap-4 justify-center">
                 <button
                   onClick={() => handleAnswer(true)}
                   className="px-6 py-2 bg-green-500 text-white rounded-md"
