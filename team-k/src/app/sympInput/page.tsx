@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "@/utils/i18n";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
+import { useResultStore } from "../stores/resultStore";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,7 +23,10 @@ export default function SympInput() {
   useEffect(() => {
     
     if (result !== null) {
-      router.push(`/sympQuestion?output=${encodeURIComponent(JSON.stringify(result))}`);
+      if (result !== null) {
+        useResultStore.getState().setResult(result);
+        router.push('/sympQuestion');
+      }
     }
   }, [result, router]);
 

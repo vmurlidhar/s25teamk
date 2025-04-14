@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "@/utils/i18n";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useDiseaseStore } from "../stores/diseaseStore";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,11 +12,18 @@ export default function SympInput() {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
-  const searchParams = useSearchParams();
   useEffect(() => {
-    const output = searchParams.get("output");
-
-  }, [searchParams]);
+    const diseaseList = useDiseaseStore.getState().diseaseList;
+  
+    if (!diseaseList) {
+      console.warn("No disease list found — user may have refreshed or landed directly.");
+      // Optional: redirect back or show an error
+      // router.push('/someFallbackPage');
+    } else {
+      // do something with diseaseList (or store it in local state)
+      console.log("Disease list:", diseaseList);
+    }
+  }, []);
 
   useEffect(() => {
     setIsClient(true);
