@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import "@/utils/i18n";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { useDiseaseStore } from "../stores/diseaseStore";
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 
 export default function SympInput() {
@@ -54,10 +54,16 @@ export default function SympInput() {
               <h3 className="text-lg sm:text-xl font-bold">
                 {t(`${diseaseKey}.name`, { defaultValue: "Unknown Disease" })}
               </h3>
+              <br />
               <p className="text-sm sm:text-base">
                 <strong>{t("symptoms")}:</strong>{" "}
-                {t(`${diseaseKey}.symptoms`, { defaultValue: "No symptoms available" })}
+                <Trans
+                  i18nKey={`${diseaseKey}.symptoms`}
+                  defaults="<ul><li>No symptoms available</li></ul>"
+                  components={{ ul: <ul className="ml-4 list-disc" />, li: <li /> }}
+                />
               </p>
+              <br />
               <p className="text-sm sm:text-base">
                 <strong>{t("treatment")}:</strong>{" "}
                 {t(`${diseaseKey}.treatment`, { defaultValue: "No treatment available" })}
