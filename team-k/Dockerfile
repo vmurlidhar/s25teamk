@@ -3,13 +3,21 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+
+RUN apk add --no-cache python3 py3-pip
 # Install dependencies
 COPY package.json package-lock.json* ./
+COPY requirements.txt ./
 RUN npm install
+# RUN python -m pip install -r requirements.txt
+# RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
+
 
 # Copy source files and build
 COPY . .
 RUN npm run build
+
 
 # Step 2: Run the app
 FROM node:20-alpine AS runner
@@ -28,5 +36,9 @@ COPY --from=builder /app/package.json ./package.json
 # Expose port for OpenShift
 EXPOSE 8080
 
-# Start Next.js server on 0.0.0.0:8080
-CMD ["npm", "start"]
+
+COPY start.sh /app/
+RUN chmod +x /app/start.sh
+CMD ["/app/start.sh"]
+
+
