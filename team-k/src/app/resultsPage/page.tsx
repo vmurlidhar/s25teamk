@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function SympInput() {
   const { t, i18n } = useTranslation();
   const [isClient, setIsClient] = useState(false);
-  const [diseaseList, setDiseaseList] = useState<any>({});
+  const [diseaseList, setDiseaseList] = useState<string | string[] | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -47,9 +47,11 @@ export default function SympInput() {
       <p className="text-sm sm:text-xl font-bold text-center">{t('medicalAdviceWarning')}</p>
       <main className="grid grid-cols-1 sm:grid-cols-1 gap-6 items-center w-full max-w-4xl">
 
-        {diseaseList ? (
-          Object.values(diseaseList).map((diseaseKey) => (
-            console.log("Disease Key:", diseaseKey),
+      {diseaseList ? (
+        Object.values(diseaseList).map((diseaseKey) => {
+          if (!diseaseKey) return null;
+
+          return (
             <div key={diseaseKey as string} className="p-4 border rounded-md shadow-md w-full">
               <h3 className="text-lg sm:text-xl font-bold">
                 {t(`${diseaseKey}.name`, { defaultValue: "Unknown Disease" })}
@@ -69,10 +71,12 @@ export default function SympInput() {
                 {t(`${diseaseKey}.treatment`, { defaultValue: "No treatment available" })}
               </p>
             </div>
-          ))
-        ) : (
-          <p>{t("noDiseasesFound")}</p>
-        )}
+          );
+        })
+      ) : (
+        <p>{t("noDiseasesFound")}</p>
+      )}
+
 
         
       </main>
