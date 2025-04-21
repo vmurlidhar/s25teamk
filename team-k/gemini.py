@@ -1,3 +1,4 @@
+import os
 import csv
 import json
 from typing import List
@@ -88,8 +89,7 @@ def generate_system_instruction(context: str, examples: str = "") -> str:
 # ------------------
 # Load API key
 try:
-    with open(API_KEY_FILE, "r") as file:
-        client = genai.Client(api_key=file.read().strip())
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 except FileNotFoundError:
     raise RuntimeError("API key file not found")
 
