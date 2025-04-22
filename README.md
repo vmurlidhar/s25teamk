@@ -6,6 +6,15 @@ NeuroChat is an AI-driven health assistant designed to bridge language barriers 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). This project uses a [FastAPI](https://fastapi.tiangolo.com/) backend that utilizes a language model (gemini-2.0-flash) to assist with medical diagnosis. It also includes tools to evaluate the model’s performance in identifying and refining disease diagnoses using [promptfoo](https://github.com/promptfoo/promptfoo).
 
+## Run through Docker
+
+To run Neurochat through Docker run the following command. This will download all necessary dependencies.
+
+```bash
+docker build . -t neurochat
+docker run --rm -p 8080:8080 --env-file .env neurochat
+```
+
 ## Frontend
 
 First, run the development server:
