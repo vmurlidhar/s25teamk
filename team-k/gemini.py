@@ -112,7 +112,7 @@ async def diagnose(patient_input: PatientInput):
     instruction = generate_system_instruction(
         context=f"Symptoms and Associated Diseases:\n{disease_context}\n\n"
         f"Available Follow-up Symptoms:\n{symptom_list}",
-        examples="- Return JSON with 'diseases' (1-10 items) and 'symptoms' (2-8 items)\n"
+        examples="- Return JSON with 'diseases' (1-10 items) and 'symptoms' (5-8 items)\n"
         "- Use exact disease names from the dataset\n"
         "- Select follow-up symptoms only from the provided list",
     )
