@@ -12,7 +12,6 @@ app = FastAPI()
 # ----------------------
 # Configuration Constants
 # ----------------------
-API_KEY_FILE = "api_key.txt"
 SYMPTOM_CSV_PATH = "datasets/disease_dataset_symptoms.csv"
 QUESTION_CSV_PATH = "datasets/disease_dataset_questions.csv"
 GEMINI_MODEL = "gemini-2.0-flash"
