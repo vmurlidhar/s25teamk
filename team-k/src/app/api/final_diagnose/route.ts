@@ -2,7 +2,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const fastApiRes = await fetch("/final_diagnose", {
+    const fastApiRes = await fetch("http://127.0.0.1:8000/final_diagnose", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

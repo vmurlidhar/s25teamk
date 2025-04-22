@@ -1,3 +1,4 @@
+import os
 import csv
 import json
 from typing import List
@@ -11,7 +12,6 @@ app = FastAPI()
 # ----------------------
 # Configuration Constants
 # ----------------------
-API_KEY_FILE = "api_key.txt"
 SYMPTOM_CSV_PATH = "datasets/disease_dataset_symptoms.csv"
 QUESTION_CSV_PATH = "datasets/disease_dataset_questions.csv"
 GEMINI_MODEL = "gemini-2.0-flash"
@@ -88,8 +88,7 @@ def generate_system_instruction(context: str, examples: str = "") -> str:
 # ------------------
 # Load API key
 try:
-    with open(API_KEY_FILE, "r") as file:
-        client = genai.Client(api_key=file.read().strip())
+    client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 except FileNotFoundError:
     raise RuntimeError("API key file not found")
 
@@ -113,7 +112,7 @@ async def diagnose(patient_input: PatientInput):
     instruction = generate_system_instruction(
         context=f"Symptoms and Associated Diseases:\n{disease_context}\n\n"
         f"Available Follow-up Symptoms:\n{symptom_list}",
-        examples="- Return JSON with 'diseases' (1-10 items) and 'symptoms' (2-8 items)\n"
+        examples="- Return JSON with 'diseases' (1-10 items) and 'symptoms' (5-8 items)\n"
         "- Use exact disease names from the dataset\n"
         "- Select follow-up symptoms only from the provided list",
     )
