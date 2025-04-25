@@ -23,7 +23,6 @@ export default function SympInput() {
   const [diseaseList, setDiseaseList] = useState<string[] | string | null>(
     null
   );
-
   function isDiagnosisResult(obj: unknown): obj is DiagnosisResult {
     return (
       typeof obj === "object" &&
@@ -40,15 +39,20 @@ export default function SympInput() {
 
     if (isDiagnosisResult(storeData)) {
       if (storeData?.symptoms) {
-        setSymptoms(storeData.symptoms);
+        console.log("Unfiltered:" + storeData.symptoms);
+
+        const validSymptoms = storeData.symptoms.filter(
+          (symptom) => t(symptom, { defaultValue: "" }) !== ""
+        );
+        setSymptoms(validSymptoms);
         setUserInput(storeData.userInput);
-        console.log(symptoms);
+        console.log("Filtered:" + symptoms);
       } else {
         console.warn("No result found in store. Did user land here directly?");
         // Optionally redirect or show a fallback
       }
     }
-  }, [symptoms]);
+  }, [t]);
 
   // useEffect(() => {
   //   if (diseaseList !== null) {
@@ -63,19 +67,33 @@ export default function SympInput() {
     }
   }, [diseaseList, router]);
 
-  const handleAnswer = (answer: boolean) => {
+  const handleAnswer = async (answer: boolean) => {
     const symptom = symptoms[currentSymptomIndex];
+    const newAnswers = [...symptomAnswers, { symptom, answer }];
+    setSymptomAnswers(newAnswers);
 
-    // Store the user's answer
-    setSymptomAnswers([...symptomAnswers, { symptom, answer }]);
-
-    // Move to the next symptom
     if (currentSymptomIndex < symptoms.length - 1) {
       setCurrentSymptomIndex(currentSymptomIndex + 1);
     } else {
-      // All symptoms answered
-      console.log("Final Answers:", symptomAnswers);
-      setCurrentSymptomIndex(symptoms.length);
+      // Last question answered, make diagnosis request
+      setLoading(true);
+      try {
+        const res = await fetch("/api/final_diagnose", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            input: JSON.stringify({ symptomAnswers: newAnswers, userInput }),
+          }),
+        });
+
+        const data = await res.json();
+        setDiseaseList(data); // this will trigger redirect via the useEffect
+      } catch (err) {
+        setDiseaseList("Error contacting the server.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -109,14 +127,11 @@ export default function SympInput() {
         {/* Right Column */}
         <div className="flex flex-col gap-4 items-center sm:items-start w-full">
           {symptoms.length > 0 && currentSymptomIndex < symptoms.length ? (
-            <div>
-              {/* Show the current symptom */}
-              <h3 className="text-xl sm:text-2xl font-bold">
+            <div className="flex flex-col items-center sm:items-start gap-4 w-full">
+              <h3 className="text-xl sm:text-2xl font-bold text-center sm:text-left">
                 {t(symptoms[currentSymptomIndex])}
               </h3>
-
-              {/* Yes / No buttons */}
-              <div className="mt-4 flex gap-4 justify-center">
+              <div className="mt-4 flex gap-4 justify-center sm:justify-start">
                 <button
                   onClick={() => handleAnswer(true)}
                   className="px-6 py-2 bg-green-500 text-white rounded-md"
@@ -131,40 +146,18 @@ export default function SympInput() {
                 </button>
               </div>
             </div>
+          ) : loading ? (
+            <div className="flex flex-col items-center justify-center gap-4 mt-6">
+              <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-b-4 border-white" />
+              <p className="text-lg text-white">
+                {t("loading", { defaultValue: "Loading..." })}
+              </p>
+            </div>
           ) : (
             <div className="flex flex-col items-center gap-4">
-              {symptomAnswers.length === 0 ? (
-                <h3 className="text-xl sm:text-2xl font-bold text-center">
-                  {t("sorryNoSymptoms")}
-                </h3>
-              ) : (
-                <button
-                  onClick={async () => {
-                    setLoading(true);
-                    try {
-                      const res = await fetch("/api/final_diagnose", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                          input: JSON.stringify({ symptomAnswers, userInput }),
-                        }),
-                      });
-
-                      const data = await res.json();
-                      setDiseaseList(data);
-                    } catch (err) {
-                      setDiseaseList("Error contacting the server.");
-                      console.error(err);
-                    } finally {
-                      setLoading(false);
-                    }
-                  }}
-                >
-                  <span className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
-                    {loading ? "Loading..." : t("submit")}
-                  </span>
-                </button>
-              )}
+              <h3 className="text-xl sm:text-2xl font-bold text-center">
+                {t("sorryNoSymptoms")}
+              </h3>
             </div>
           )}
         </div>
