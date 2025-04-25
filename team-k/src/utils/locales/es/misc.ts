@@ -3,12 +3,16 @@ const misc = {
   pickLanguage: "Elige un idioma para empezar:",
   home: "Volver a la página de inicio",
 
-  privacyWarning: "NeuroChat utiliza Gemini AI para analizar los síntomas y proporcionar orientación informativa. Si no se siente cómodo compartiendo información médica personal con inteligencia artificial, absténgase de utilizar este sitio web.",
-  medicalAdviceWarning: "NeuroChat proporciona únicamente orientación informativa y NO debe utilizarse como un diagnóstico formal. Si le preocupan sus síntomas, consulte a un profesional de la salud calificado.",
+  privacyWarning:
+    "NeuroChat utiliza Gemini AI para analizar los síntomas y proporcionar orientación informativa. Si no se siente cómodo compartiendo información médica personal con inteligencia artificial, absténgase de utilizar este sitio web.",
+  medicalAdviceWarning:
+    "NeuroChat proporciona únicamente orientación informativa y NO debe utilizarse como un diagnóstico formal. Si le preocupan sus síntomas, consulte a un profesional de la salud calificado.",
   symptoms: "Síntoma",
   treatment: "Tratamiento",
   sorryNoSymptoms:
     "Lo sentimos, no hemos detectado ningún síntoma en su respuesta en nuestra base de datos. Inténtelo de nuevo o consulte con un profesional médico.",
+  noDiseasesFound:
+    "Según sus respuestas, no pudimos identificar ninguna enfermedad en nuestra base de datos. Consulte con un profesional de la salud para una evaluación más detallada.",
 };
 
 export default misc;

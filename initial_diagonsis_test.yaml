@@ -45,7 +45,7 @@ tests:
       transform: output
     assert:
       - type: javascript
-        value: output.diseases.some(d => /multiple sclerosis|parkinson/i.test(d))
+        value: output.diseases.some(d => /multipleSclerosis|parkinson/i.test(d))
 
   - vars:
       patient_input: "Estoy teniendo menos actividades divertidas antes de dormir con mi pareja. Me siento mareado."
@@ -53,7 +53,7 @@ tests:
       transform: output
     assert:
       - type: javascript
-        value: output.diseases.some(d => /multiple system atrophy/i.test(d))
+        value: output.diseases.some(d => /multipleSystemAtrophy/i.test(d))
 
   - vars:
       patient_input: "I am having a cough and a sore throat"
