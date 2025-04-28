@@ -10,7 +10,7 @@ const misc = {
   symptoms: "Symptom",
   treatment: "Treatment",
   sorryNoSymptoms:
-    "Sorry, we did not recongize any symptoms from your response in our database. Please try again or consult a medical professional.",
+    "Sorry, we did not recognize any symptoms from your response in our database. Please try again or consult a medical professional.",
   noDiseasesFound:
     "Based on your responses, we were unable to identify any diseases in our database. Please consult with a healthcare professional for further evaluation.",
 };
