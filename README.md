@@ -39,7 +39,7 @@ To start the backend server locally, run:
 ```bash
 cd team-k
 pip install -r requirements.txt
-uvicorn gemini:app --reload
+uvicorn gemini:app --reload --env-file .env
 ```
 
 ## Testing
